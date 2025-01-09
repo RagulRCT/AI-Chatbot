@@ -3,7 +3,7 @@
 import { AlertCircle, Trash2, LogOut, Menu, X, Moon, Sun } from 'lucide-react';
 import { Message as SDKMessage } from '@ai-sdk/ui-utils';
 import { useChat } from 'ai/react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useState, useEffect, useCallback } from 'react';
 import { useUser } from '@auth0/nextjs-auth0/client';
 import { useTheme } from '@components/ThemeProvider';
@@ -107,6 +107,9 @@ export default function Chat() {
   const handleLogout = () => {
     router.push('/api/auth/logout');
   };
+
+  const searchParams = useSearchParams();
+  const bypass = searchParams.get('bypass') === 'true';
 
   // Delete a message and its corresponding response
   const handleDeleteMessage = useCallback(
@@ -213,15 +216,17 @@ export default function Chat() {
               <Trash2 className="h-4 w-4 mr-2" />
               Clear Chat
             </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={handleLogout}
-              className="flex items-center"
-            >
-              <LogOut className="h-4 w-4 mr-2" />
-              Logout
-            </Button>
+            {!bypass && (
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={handleLogout}
+                className="flex items-center"
+              >
+                <LogOut className="h-4 w-4 mr-2" />
+                Logout
+              </Button>
+            )}
             <Button
               variant="ghost"
               size="icon"

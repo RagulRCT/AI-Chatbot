@@ -29,9 +29,12 @@ export default function AuthPage() {
   }, [user, router]);
 
   const handleLogin = () => {
-    // Force re-authentication by adding a 'prompt=login' parameter
     const loginUrl = `/api/auth/login?prompt=login`;
     router.push(loginUrl);
+  };
+
+  const handleBypass = () => {
+    router.push('/?bypass=true');
   };
 
   if (error) return <div>{error.message}</div>;
@@ -43,6 +46,9 @@ export default function AuthPage() {
       </h1>
       <Button className="mb-4 w-full max-w-sm" onClick={handleLogin}>
         Log In / Sign Up
+      </Button>
+      <Button className="w-full max-w-sm" variant="secondary" onClick={handleBypass}>
+        Continue Without Logging In
       </Button>
     </div>
   );
