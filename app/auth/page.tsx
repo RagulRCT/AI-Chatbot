@@ -48,7 +48,7 @@ export default function AuthPage() {
         Log In / Sign Up
       </Button>
       <Button className="w-full max-w-sm" variant="secondary" onClick={handleBypass}>
-        Continue Without Logging In
+        Continue as Guest
       </Button>
     </div>
   );
