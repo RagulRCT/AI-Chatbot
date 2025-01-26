@@ -53,7 +53,7 @@ export const MessageBubble = ({
   const formatContent = (content: string) => {
     // Replace **bold** with <strong> tags and add space above and below
     const boldFormatted = content.replace(/\*\*(.*?)\*\*/g, (match, p1) => {
-      return `<strong style="display:block; margin-top:10px; margin-bottom:10px;">${p1}</strong>`;
+      return `<strong">${p1}</strong>`;
     });
 
     // Replace newlines (\n) with <br> tags to create line breaks
