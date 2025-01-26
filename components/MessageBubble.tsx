@@ -1,11 +1,7 @@
-import Markdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
 import { useMediaQuery } from 'react-responsive';
 import { useState, useEffect, useRef } from 'react';
-
 import { ActionButtons } from './ActionButtons';
 import { Button } from '@ui/Button';
-import { CodeBlock } from './CodeBlock';
 import { Message } from '@/types/Message';
 import { Textarea } from '@ui/TextArea';
 
