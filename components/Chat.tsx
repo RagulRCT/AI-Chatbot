@@ -18,7 +18,7 @@ import { Welcome } from './Welcome';
 // Helper function to map SDK messages to app-specific messages
 const mapMessages = (sdkMessages: SDKMessage[]): Message[] => {
   return sdkMessages.map((msg) => ({
-    id: msg.id,
+      id: msg.id,
     role: msg.role === 'data' || msg.role === 'system' ? 'assistant' : msg.role,
     content: msg.content,
   }));
@@ -70,9 +70,7 @@ export default function Chat() {
         } catch (error) {
           console.error('Failed to save interaction:', error);
         }
-      } else {
-        console.error('User not authenticated');
-      }
+      } 
     },
   });
 

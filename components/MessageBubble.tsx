@@ -53,6 +53,21 @@ export const MessageBubble = ({
 
   const isSubmitDisabled = editedContent === message.content;
 
+  // Function to add spacing around bold text and handle line breaks
+  const formatContent = (content: string) => {
+    // Replace **bold** with <strong> tags and add space above and below
+    const boldFormatted = content.replace(/\*\*(.*?)\*\*/g, (match, p1) => {
+      return `<strong style="display:block; margin-top:10px; margin-bottom:10px;">${p1}</strong>`;
+    });
+
+    // Replace newlines (\n) with <br> tags to create line breaks
+    const newLinesFormatted = boldFormatted.replace(/\n/g, '<br>');
+
+    return newLinesFormatted;
+  };
+
+  const formattedMessage = formatContent(message.content);
+
   return (
     <div
       className={`relative px-3 py-2 rounded-lg w-full ${
@@ -97,24 +112,12 @@ export const MessageBubble = ({
               {message.content}
             </pre>
           ) : (
-            <Markdown
+            // Render the formatted message with HTML using dangerouslySetInnerHTML
+            <div
               className="leading-8 pb-4"
-              remarkPlugins={[remarkGfm]}
-              components={{
-                p: ({ children }) => (
-                  <div style={{ maxWidth: '50' }}>{String(children)}</div>
-                ),
-                code({ children, className }) {
-                  return (
-                    <CodeBlock className={className || ''}>
-                      {String(children)}
-                    </CodeBlock>
-                  );
-                },
-              }}
-            >
-              {String(message.content)}
-            </Markdown>
+              dangerouslySetInnerHTML={{ __html: formattedMessage }}
+              style={{ whiteSpace: 'pre-wrap' }} // Preserve spaces and line breaks
+            />
           )}
           <div
             className={`absolute bottom-1 ${
